@@ -9,8 +9,8 @@ var sortedSquares = function(nums) {
      let pos = nums.length - 1
      let newArr = new Array(nums.length);
      while( i <= j){
-      const iSquare = nums[i] * nums[i];
-      const jSquare = nums[j] * nums[j];
+      let iSquare = nums[i] * nums[i];
+      let jSquare = nums[j] * nums[j];
       console.log(iSquare, jSquare)
       if(iSquare >= jSquare){
          newArr[pos] = iSquare
