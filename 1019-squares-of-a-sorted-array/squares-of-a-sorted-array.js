@@ -1,24 +1,25 @@
+
 /**
  * @param {number[]} nums
  * @return {number[]}
  */
 var sortedSquares = function(nums) {
-    let result = new Array(nums.length);
-    let i = 0;
-    let j = nums.length - 1
-    let pos = nums.length - 1
-    while(i <= j){
-    const iSquare = nums[i] * nums[i];
-    const jSquare = nums[j] * nums[j];
-      if(iSquare > jSquare){
-         result[pos] = iSquare
+     let i = 0;
+     let j = nums.length - 1
+     let pos = nums.length - 1
+     let newArr = new Array(nums.length);
+     while( i <= j){
+      const iSquare = nums[i] * nums[i];
+      const jSquare = nums[j] * nums[j];
+      console.log(iSquare, jSquare)
+      if(iSquare >= jSquare){
+         newArr[pos] = iSquare
          i++
       }else{
-       result[pos] = jSquare
-       j--
+         newArr[pos] = jSquare
+         j--
       }
       pos--
-
- }
- return result
+     }
+     return newArr
 };
