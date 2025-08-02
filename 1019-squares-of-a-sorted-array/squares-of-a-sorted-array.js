@@ -1,4 +1,5 @@
 
+
 /**
  * @param {number[]} nums
  * @return {number[]}
@@ -9,9 +10,8 @@ var sortedSquares = function(nums) {
      let pos = nums.length - 1
      let newArr = new Array(nums.length);
      while( i <= j){
-      let iSquare = nums[i] * nums[i];
-      let jSquare = nums[j] * nums[j];
-      console.log(iSquare, jSquare)
+      const iSquare = nums[i] * nums[i];
+      const jSquare = nums[j] * nums[j];
       if(iSquare >= jSquare){
          newArr[pos] = iSquare
          i++
