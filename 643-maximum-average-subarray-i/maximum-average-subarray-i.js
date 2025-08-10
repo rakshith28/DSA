@@ -9,9 +9,9 @@ var findMaxAverage = function(nums, k) {
         windowSum += nums[i];
     }
     let maxSum = windowSum;
-    for (let i = k; i < nums.length; i++) {
-        windowSum += nums[i] - nums[i - k];
-        maxSum = Math.max(maxSum, windowSum);
+    for(let i = k; i < nums.length; i++){
+        windowSum = (nums[i] - nums[i - k]) + windowSum
+        maxSum = Math.max(windowSum, maxSum)
     }
     return maxSum / k;
 };
