@@ -4,9 +4,9 @@
  * @return {number}
  */
 var minKBitFlips = function(nums, k) {
-    const dQueue = []
+    let dQueue = []
     let flip = 0
-    const n = nums.length
+    let n = nums.length
     for(let i = 0; i < n; i++){
         if(dQueue?.length && dQueue[0] < i ){
             dQueue.shift();
