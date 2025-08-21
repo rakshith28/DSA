@@ -4,17 +4,21 @@
  * @return {number}
  */
 var numberOfSubarrays = function(nums, k) {
-    const atMost = (k) => {
-        let l = 0, res = 0, odds = 0;
-        for (let r = 0; r < nums.length; r++) {
-            if (nums[r] % 2 === 1) odds++;
-            while (odds > k) {
-                if (nums[l] % 2 === 1) odds--;
-                l++;
-            }
-            res += r - l + 1;
+  const calSubArray = (nums, k) => {
+    if(k < 0){
+        return 0
+    }
+    let l = 0; r =0; count =0; sum = 0;
+    while(r < nums.length){
+        sum +=  nums[r]%2;
+        while(sum > k){
+            sum = sum - nums[l]%2;
+            l++
         }
-        return res;
-    };
-    return atMost(k) - atMost(k - 1);
+        count = count + (r -l + 1);
+        r++
+    }
+    return count
+  } 
+  return calSubArray(nums, k) - calSubArray(nums, k - 1)
 };
