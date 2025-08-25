@@ -4,41 +4,43 @@
  * @return {string}
  */
 var minWindow = function(s, t) {
-   let map = new Map();
-    for(let i = 0; i < t.length; i++){
-    if(!map.has(t[i])){
-      map.set(t[i], 1);
-    }else{
-      map.set(t[i], map.get(t[i])+ 1);
+    if (s.length === 0 || t.length === 0) return "";
+    let store = new Map();
+    for (let i = 0; i < t.length; i++) {
+        store.set(t[i], (store.get(t[i]) || 0) + 1);
     }
-    }
-    let right = 0; left  = 0; len = Infinity; count = map.size; minWindowVal = ""
-    
-    while(right < s.length){
-      let rLetter = s[right]
-      if(map.has(rLetter)){
-          map.set(rLetter, map.get(rLetter) - 1);
-          if(map.get(rLetter) === 0){
-              count --
+    let l = 0, r = 0;
+    let count = t.length;  
+    let minLen = Infinity;
+    let SIndex = -1;
+    while (r < s.length) {
+        let charR = s[r];
+        if (store.has(charR)) {
+            store.set(charR, store.get(charR) - 1);
+            if (store.get(charR) >= 0) {
+                count--; 
+            }
         }
-       }
-      right ++
-      while(count === 0){
-       if(right - left < len){
-           len = right - left
-           minWindowVal = s.slice(left, right)
-      }  
-       let sLetter = s[left];
-       if(map.has(sLetter)){
-          map.set(sLetter, map.get(sLetter) + 1);
-          if(map.get(sLetter) > 0){
-              count ++
+        while (count === 0) { 
+            if (r - l + 1 < minLen) {
+                minLen = r - l + 1;
+                SIndex = l;
+            }
+
+            let charL = s[l];
+            if (store.has(charL)) {
+                store.set(charL, store.get(charL) + 1);
+                if (store.get(charL) > 0) {
+                    count++; 
+                }
+            }
+            l++;
         }
-       }
-       left++
-      }
+        r++;
     }
-   return minWindowVal
+
+    return SIndex === -1 ? "" : s.substring(SIndex, SIndex + minLen);
 };
+
 
 
