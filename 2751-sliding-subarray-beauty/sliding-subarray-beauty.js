@@ -6,41 +6,39 @@
  */
 function getSubarrayBeauty(nums, k, x) {
   const n = nums.length;
-  const window = new Map();
+  const freq = new Array(51).fill(0); // for negatives -50..-1 mapped to [0..50]
   const result = [];
 
-  // helper: add number to map
   const add = (num) => {
     if (num < 0) {
-      window.set(num, (window.get(num) || 0) + 1);
+      freq[-num]++;
     }
   };
 
-  // helper: remove number from map
   const remove = (num) => {
     if (num < 0) {
-      window.set(num, window.get(num) - 1);
-      if (window.get(num) === 0) window.delete(num);
+      freq[-num]--;
     }
   };
 
-  // helper: find x-th smallest negative
   const findXth = () => {
     let count = 0;
-    // iterate negatives in ascending order
-    const negatives = [...window.keys()].sort((a, b) => a - b);
-    for (let num of negatives) {
-      count += window.get(num);
-      if (count >= x) return num;
+    for (let i = 50; i >= 1; i--) {
+      count += freq[i];
+      if (count >= x) {
+        return -i;
+      }
     }
     return 0;
   };
 
-  // initialize window
-  for (let i = 0; i < k; i++) add(nums[i]);
+  // first window
+  for (let i = 0; i < k; i++) {
+    add(nums[i]);
+  }
   result.push(findXth());
 
-  // slide window
+  // sliding window
   for (let i = k; i < n; i++) {
     add(nums[i]);
     remove(nums[i - k]);
@@ -49,3 +47,4 @@ function getSubarrayBeauty(nums, k, x) {
 
   return result;
 }
+
