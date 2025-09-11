@@ -2,19 +2,19 @@
  * @param {number[]} nums
  * @return {number[]}
  */
-var nextGreaterElements = function(nums) {
-    let n = nums.length;
-    let res = new Array(n).fill(-1);
+var nextGreaterElements = function (nums) {
     let stack = [];
-
-    for (let i = 0; i < 2 * n; i++) {
-        let num = nums[i % n];
-        while (stack.length && nums[stack[stack.length - 1]] < num) {
-            let index = stack.pop();
-            res[index] = num;
+    let ng = []
+    for (let i = 2 * nums.length - 1; i >= 0 ; i--) {
+        while (stack.length > 0 &&  stack[stack.length - 1] <= nums[i % nums.length]) {
+            stack.pop();
         }
-        if (i < n) stack.push(i); 
+        if(i < nums.length){
+        ng[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
+        }
+        stack.push(nums[i % nums.length])
     }
-
-    return res;
+    return ng
 };
+
+
