@@ -4,24 +4,22 @@
  * @return {number[][]}
  */
 var combinationSum = function(candidates, target) {
-    const result = [];
+   const data = []
 
-    function backtrack(start, current, total) {
-        if (total === target) {
-            result.push([...current]); 
-            return;
-        }
-        if (total > target) return; 
-
-        for (let i = start; i < candidates.length; i++) {
-            current.push(candidates[i]);     
-            backtrack(i, current, total + candidates[i]); 
-            current.pop();                
-        }
+  const backTrack = (start, curr, total) => {
+    if(total === target){
+      data.push([...curr])
+      return;
     }
-
-    backtrack(0, [], 0);
-    return result;
+    if(total > target) return
+    for(let i = start; i < candidates.length; i++){
+       curr.push(candidates[i])
+       backTrack(i, curr, total + candidates[i])
+       curr.pop()
+   }
+  }
+  backTrack(0, [], 0)
+  return data
 };
 
 
